@@ -5,7 +5,7 @@
   >
     <div class="flex items-center w-36">
       <img
-        :src="iconSrc"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png"
         style="borded: 1px solid #ebebf3"
         class="w-12 h-12 rounded-full p-2 border"
         alt="?"
@@ -155,7 +155,6 @@ export default {
         ],
       } as ChartData<"line", (number | ScatterDataPoint | null)[], unknown>,
 
-      iconSrc: `src/assets/icons/${this.crypto?.symbol.toLowerCase()}.png`,
       changedCryptoValue: 0,
     };
   },
