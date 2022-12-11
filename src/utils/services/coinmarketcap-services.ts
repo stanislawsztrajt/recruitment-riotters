@@ -29,7 +29,7 @@ class CoinMarketCapServices {
       console.error(err);
       return {
         message:
-          "Install to get response (cors error) https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf",
+          "Install and activate to get response (cors error) https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf",
         data: [],
       };
     }
