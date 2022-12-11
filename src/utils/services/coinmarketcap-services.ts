@@ -1,44 +1,39 @@
-import axios from "axios"
-import { RespnseCryptoIcon, ResponseCoinMarketCap } from "../types/crypto"
+import axios from "axios";
+import { DefaultResponse, Icrypto, ResponseCoinMarketCap } from "../types/crypto";
 
-const COINMARKETCAP_URL = 'https://pro-api.coinmarketcap.com'
-const VITE_COINMARKETCAP_API_KEY = '719c5433-61c3-4079-9268-e4de4457d490'
+const COINMARKETCAP_URL = "https://pro-api.coinmarketcap.com";
 
 class CoinMarketCapServices {
-  async getCryptos (): Promise<ResponseCoinMarketCap> {
+  async getCryptos(): Promise<DefaultResponse<Icrypto[]>> {
     try {
-      const response = await axios.get(
-        `${COINMARKETCAP_URL}/v1/cryptocurrency/listings/latest`, 
+      const response: ResponseCoinMarketCap = await axios.get(
+        `${COINMARKETCAP_URL}/v1/cryptocurrency/listings/latest`,
         {
           headers: {
-            'Accepts': 'application/json',
-            'Access-Control-Allow-Origin' : '*',
-            'X-CMC_PRO_API_KEY': VITE_COINMARKETCAP_API_KEY,
-          }
-        })
+            Accepts: "application/json",
+            // should be handled by some backend, because of CORS and security of API KEY
+            "X-CMC_PRO_API_KEY": import.meta.env.VITE_COINMARKETCAP_API_KEY,
+          },
+        }
+      );
 
-      return { data: response.data.data, message: null }
-    } catch(err) {
-      console.error(err);
-      return { message: 'Something went wrong with coinmarketcap API', data: { data: [] }}
-    }
-  }
-
-  async getCryptoIconBySymbol (symbol: string): Promise<RespnseCryptoIcon> {
-    try {
-      const response = await axios.get(`https://coinicons-api.vercel.app/api/icon/${symbol}`)
-      if (symbol.toLowerCase() === 'btc')
-      
-      console.log(response)
-      return { data: response.data, message: null }
+      return {
+        data: response.data.data
+          .splice(0, 10)
+          .filter(
+            (crypto) => crypto.symbol !== "BUSD"
+          ),
+        message: null,
+      };
     } catch (err) {
       console.error(err);
-      return { data: null, message: 'Somethingn went wrong with crypto icon API' }
+      return {
+        message:
+          "Something went wrong with coinmarketcap API, try again later :(",
+        data: [],
+      };
     }
-
-
   }
 }
 
-
-export default new CoinMarketCapServices()
+export default new CoinMarketCapServices();

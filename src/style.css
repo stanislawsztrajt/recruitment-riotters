@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: 'SF Pro Display', sans-serif;
+  @apply bg-black
+}
+
+.secondary-text-color {
+  color: #9896A1;
+}
+
+.button-primary {
+  background: #7445FB;
+  @apply rounded text-white font-semibold text-sm px-4 py-2 hover:opacity-80 duration-100
+}
+
+.button-secondary {
+  background: #fff;
+  border: #EBEBF3 1px solid;
+  color: #7445FB;
+  @apply rounded font-semibold text-sm px-4 py-2 hover:opacity-80 duration-100
+}
